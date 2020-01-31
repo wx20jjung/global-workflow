@@ -54,6 +54,7 @@ fi
 
 cd $ROTDIR
 
+ [[ ! -d $ATARDIR/$CDATE ]] && mkdir -p $ATARDIR/$CDATE
 
 ###################################################################
 # ENSGRP > 0 archives a group of ensemble members
@@ -80,27 +81,29 @@ if [[ $ENSGRP -gt 0 ]] && [[ $HPSSARCH = "YES" ]]; then
        if [ $CDATE -eq $SDATE -a $cyc -eq $EARCICS_CYC ] ; then SAVEWARMICB="YES" ; fi
    fi
 
-   htar -P -cvf $ATARDIR/$CDATE/enkf${CDUMP}_grp${ENSGRP}.tar `cat $ARCH_LIST/enkf${CDUMP}_grp${n}.txt`
-   status=$?
-   if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
-       echo "HTAR $CDATE enkf${CDUMP}_grp${ENSGRP}.tar failed"
-       exit $status
+   if [ $CDATE -gt $SDATE ]; then
+       tar -P -cvf $ATARDIR/$CDATE/enkf${CDUMP}_grp${ENSGRP}.tar `cat $ARCH_LIST/enkf${CDUMP}_grp${n}.txt`
+       status=$?
+       if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
+           echo "TAR $CDATE enkf${CDUMP}_grp${ENSGRP}.tar failed"
+           exit $status
+       fi
    fi
 
    if [ $SAVEWARMICA = "YES" -a $cyc -eq $EARCINC_CYC ]; then
-       htar -P -cvf $ATARDIR/$CDATE/enkf${CDUMP}_restarta_grp${ENSGRP}.tar `cat $ARCH_LIST/enkf${CDUMP}_restarta_grp${n}.txt`
+       tar -P -cvf $ATARDIR/$CDATE/enkf${CDUMP}_restarta_grp${ENSGRP}.tar `cat $ARCH_LIST/enkf${CDUMP}_restarta_grp${n}.txt`
        status=$?
        if [ $status -ne 0 ]; then
-           echo "HTAR $CDATE enkf${CDUMP}_restarta_grp${ENSGRP}.tar failed"
+           echo "TAR $CDATE enkf${CDUMP}_restarta_grp${ENSGRP}.tar failed"
            exit $status
        fi
    fi
 
    if [ $SAVEWARMICB = "YES"  -a $cyc -eq $EARCICS_CYC ]; then
-       htar -P -cvf $ATARDIR/$CDATE/enkf${CDUMP}_restartb_grp${ENSGRP}.tar `cat $ARCH_LIST/enkf${CDUMP}_restartb_grp${n}.txt`
+       tar -P -cvf $ATARDIR/$CDATE/enkf${CDUMP}_restartb_grp${ENSGRP}.tar `cat $ARCH_LIST/enkf${CDUMP}_restartb_grp${n}.txt`
        status=$?
        if [ $status -ne 0 ]; then
-           echo "HTAR $CDATE enkf${CDUMP}_restartb_grp${ENSGRP}.tar failed"
+           echo "TAR $CDATE enkf${CDUMP}_restartb_grp${ENSGRP}.tar failed"
            exit $status
        fi
    fi
@@ -114,10 +117,10 @@ if [ $ENSGRP -eq 0 ]; then
 
     if [ $HPSSARCH = "YES" ]; then
 
-        htar -P -cvf $ATARDIR/$CDATE/enkf${CDUMP}.tar `cat $ARCH_LIST/enkf${CDUMP}.txt`
+        tar -P -cvf $ATARDIR/$CDATE/enkf${CDUMP}.tar `cat $ARCH_LIST/enkf${CDUMP}.txt`
         status=$?
         if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
-            echo "HTAR $CDATE enkf${CDUMP}.tar failed"
+            echo "TAR $CDATE enkf${CDUMP}.tar failed"
             exit $status
         fi
     fi

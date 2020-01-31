@@ -1,0 +1,21 @@
+#%Module#####################################################
+## gaussian_sfcanl build module for Theia
+#############################################################
+
+# Loading Intel Compiler Suite
+module load license_intel/SSEC
+module load intel/18.0.3
+module load hdf/4.2.14
+module load hdf5/1.8.21
+module load netcdf4/4.6.2
+
+# Loding nceplibs modules
+module use -a $MOD_PATH
+module load w3nco/v2.0.6
+module load bacio/v2.0.2
+module load nemsio/v2.2.3
+module load sp/v2.0.2
+export NETCDF_INCLUDE="-I${NETCDF_INC}"
+export NETCDF_LDFLAGS_F="-L${NETCDF_LIB} -lnetcdf -lnetcdff -L${SSEC_HDF5_LIB} -lhdf5_hl -lhdf5"
+
+export FCOMP=ifort

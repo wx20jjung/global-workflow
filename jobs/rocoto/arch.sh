@@ -82,6 +82,11 @@ if [ -s avno.t${cyc}z.cyclone.trackatcfunix ]; then
     cat avno.t${cyc}z.cyclone.trackatcfunix | sed s:AVNO:${PLSOT4}:g  > ${ARCDIR}/atcfunix.${CDUMP}.$CDATE
     cat avnop.t${cyc}z.cyclone.trackatcfunix | sed s:AVNO:${PLSOT4}:g  > ${ARCDIR}/atcfunixp.${CDUMP}.$CDATE
 fi
+if [ -s avnx.t${cyc}z.cyclone.trackatcfunix ]; then
+    PLSOT4=`echo $PSLOT|cut -c 1-4 |tr '[a-z]' '[A-Z]'`
+    cat avnx.t${cyc}z.cyclone.trackatcfunix | sed s:AVNX:${PLSOT4}:g  > ${ARCDIR}/atcfunix.${CDUMP}.$CDATE
+#    cat avnxp.t${cyc}z.cyclone.trackatcfunix | sed s:AVNX:${PLSOT4}:g  > ${ARCDIR}/atcfunixp.${CDUMP}.$CDATE
+fi
 if [ $CDUMP = "gfs" ]; then
     $NCP storms.gfso.atcf_gen.$CDATE      ${ARCDIR}/.
     $NCP storms.gfso.atcf_gen.altg.$CDATE ${ARCDIR}/.
@@ -154,36 +159,37 @@ cd $ROTDIR
 
 if [ $CDUMP = "gfs" ]; then
 
-    #for targrp in gfsa gfsb - NOTE - do not check htar error status
+    [[ ! -d $ATARDIR/$CDATE ]] && mkdir -p $ATARDIR/$CDATE
+    #for targrp in gfsa gfsb - NOTE - do not check tar error status
     for targrp in gfsa gfsb; do
-        htar -P -cvf $ATARDIR/$CDATE/${targrp}.tar `cat $ARCH_LIST/${targrp}.txt`
+        tar -P -cvf $ATARDIR/$CDATE/${targrp}.tar `cat $ARCH_LIST/${targrp}.txt`
     done
 
     #for targrp in gfs_flux gfs_nemsio gfs_pgrb2b; do
     for targrp in gfs_flux gfs_nemsioa gfs_nemsiob; do
-        htar -P -cvf $ATARDIR/$CDATE/${targrp}.tar `cat $ARCH_LIST/${targrp}.txt`
+        tar -P -cvf $ATARDIR/$CDATE/${targrp}.tar `cat $ARCH_LIST/${targrp}.txt`
         status=$?
         if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
-            echo "HTAR $CDATE ${targrp}.tar failed"
+            echo "TAR $CDATE ${targrp}.tar failed"
             exit $status
         fi
     done
     
     if [ $SAVEFCSTIC = "YES" ]; then
-        htar -P -cvf $ATARDIR/$CDATE/gfs_restarta.tar `cat $ARCH_LIST/gfs_restarta.txt`
+        tar -P -cvf $ATARDIR/$CDATE/gfs_restarta.tar `cat $ARCH_LIST/gfs_restarta.txt`
         status=$?
         if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
-            echo "HTAR $CDATE gfs_restarta.tar failed"
+            echo "TAR $CDATE gfs_restarta.tar failed"
             exit $status
         fi
     fi
 
    #--save mdl gfsmos output from all cycles in the 18Z archive directory
    if [ -d gfsmos.$PDY_MOS -a $cyc -eq 18 ]; then
-        htar -P -cvf $ATARDIR/$CDATE_MOS/gfsmos.tar ./gfsmos.$PDY_MOS
+        tar -P -cvf $ATARDIR/$CDATE_MOS/gfsmos.tar ./gfsmos.$PDY_MOS
         status=$?
         if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
-            echo "HTAR $CDATE gfsmos.tar failed"
+            echo "TAR $CDATE gfsmos.tar failed"
             exit $status
         fi
    fi
@@ -193,26 +199,27 @@ fi
 
 if [ $CDUMP = "gdas" ]; then
 
-    htar -P -cvf $ATARDIR/$CDATE/gdas.tar `cat $ARCH_LIST/gdas.txt`
+    [[ ! -d $ATARDIR/$CDATE ]] && mkdir -p $ATARDIR/$CDATE
+    tar -P -cvf $ATARDIR/$CDATE/gdas.tar `cat $ARCH_LIST/gdas.txt`
     status=$?
     if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
-        echo "HTAR $CDATE gdas.tar failed"
+        echo "TAR $CDATE gdas.tar failed"
         exit $status
     fi
 
     if [ $SAVEWARMICA = "YES" -o $SAVEFCSTIC = "YES" ]; then
-        htar -P -cvf $ATARDIR/$CDATE/gdas_restarta.tar `cat $ARCH_LIST/gdas_restarta.txt`
+        tar -P -cvf $ATARDIR/$CDATE/gdas_restarta.tar `cat $ARCH_LIST/gdas_restarta.txt`
         status=$?
         if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
-            echo "HTAR $CDATE gdas_restarta.tar failed"
+            echo "TAR $CDATE gdas_restarta.tar failed"
             exit $status
         fi
     fi
     if [ $SAVEWARMICB = "YES" -o $SAVEFCSTIC = "YES" ]; then
-        htar -P -cvf $ATARDIR/$CDATE/gdas_restartb.tar `cat $ARCH_LIST/gdas_restartb.txt`
+        tar -P -cvf $ATARDIR/$CDATE/gdas_restartb.tar `cat $ARCH_LIST/gdas_restartb.txt`
         status=$?
         if [ $status -ne 0  -a $CDATE -ge $firstday ]; then
-            echo "HTAR $CDATE gdas_restartb.tar failed"
+            echo "TAR $CDATE gdas_restartb.tar failed"
             exit $status
         fi
     fi

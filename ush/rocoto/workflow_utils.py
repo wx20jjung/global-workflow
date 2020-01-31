@@ -26,7 +26,8 @@ SCHEDULER_MAP={'ZEUS':'moabtorque',
                'THEIA':'moabtorque',
                'WCOSS':'lsf',
                'WCOSS_DELL_P3':'lsf',
-               'WCOSS_C':'lsfcray'}
+               'WCOSS_C':'lsfcray',
+               'S4':'slurm'}
 
 class UnknownMachineError(Exception): pass
 class UnknownConfigError(Exception): pass
@@ -312,7 +313,7 @@ def get_resources(machine, cfg, task, cdump='gdas'):
     if machine in ['THEIA'] and check_slurm():
         natstr = '--export=NONE'
     
-    if machine in ['ZEUS', 'THEIA', 'WCOSS_C', 'WCOSS_DELL_P3']:
+    if machine in ['ZEUS', 'THEIA', 'WCOSS_C', 'WCOSS_DELL_P3', 'S4']:
         resstr = '<nodes>%d:ppn=%d</nodes>' % (nodes, ppn)
 
         if machine in ['WCOSS_C'] and task in ['arch', 'earc', 'getic']:

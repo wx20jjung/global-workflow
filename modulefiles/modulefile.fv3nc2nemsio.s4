@@ -1,0 +1,16 @@
+#%Module#####################################################
+## Module file for fv3nc2nemsio
+#############################################################
+module load license_intel/SSEC
+module load intel/18.0.3
+module load hdf
+module load hdf5
+module load netcdf4
+
+module use -a $MOD_PATH
+module load bacio/v2.0.2
+module load nemsio/v2.2.3
+module load w3nco/v2.0.6
+
+export FCMP="ifort"
+export FFLAGS="-g -O2 -traceback -fp-model strict -qopenmp"

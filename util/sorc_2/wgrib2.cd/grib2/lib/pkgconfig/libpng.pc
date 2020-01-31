@@ -1,0 +1,11 @@
+prefix=/gpfsm/dnb55/jajung/ncep_gdas-intel-18.0.2.199/util/sorc/wgrib2.cd/grib2
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/libpng12
+
+Name: libpng
+Description: Loads and saves PNG files
+Version: 1.2.57
+Libs: -L${libdir} -lpng12
+Libs.private: -lz -lm 
+Cflags: -I${includedir} 

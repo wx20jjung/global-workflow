@@ -20,7 +20,7 @@ global machines
 global expdir, configdir, comrot, pslot, resdet, resens, nens, cdump, idate, edate, gfs_cyc
 
 
-machines = ['THEIA', 'WCOSS_C', 'WCOSS_DELL_P3']
+machines = ['THEIA', 'WCOSS_C', 'WCOSS_DELL_P3', 'S4']
 
 
 def makedirs_if_missing(d):

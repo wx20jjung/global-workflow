@@ -1,0 +1,16 @@
+#%Module######################################################################
+##
+##      FV3GFS prerequisites
+##
+module load license_intel/SSEC
+module load intel/18.0.3
+module load hdf/4.2.14
+module load hdf5/1.8.21
+module load netcdf4/4.6.2
+module load miniconda/2.7-base
+
+module use -a /data/prod/ncep_libs/intel/18.0.3/modulefiles
+module load esmf/v7.1.0r
+
+#module use /scratch4/NCEPDEV/nems/noscrub/emc.nemspara/soft/modulefiles
+#module load prod_util

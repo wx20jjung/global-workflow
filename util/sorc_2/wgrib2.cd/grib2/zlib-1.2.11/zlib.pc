@@ -1,0 +1,13 @@
+prefix=/gpfsm/dnb55/jajung/ncep_gdas-intel-18.0.2.199/util/sorc/wgrib2.cd/grib2
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+sharedlibdir=${libdir}
+includedir=${prefix}/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.11
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

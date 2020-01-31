@@ -1,0 +1,18 @@
+#%Module#####################################################
+## emcsfc_ice_blend build module for Theia
+#############################################################
+
+module load license_intel/SSEC
+module load intel/18.0.3
+export FCOMP=ifort
+export FFLAGS="-O2 -i4 -fp-model strict -traceback -auto"
+
+# load ncep library modules
+
+module use -a $MOD_PATH
+module load w3nco/v2.0.6
+module load bacio/v2.0.2
+module load jasper/v1.900.1
+module load z/v1.2.6
+module load png/v1.2.44
+module load g2/v3.1.0

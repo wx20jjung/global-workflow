@@ -1,0 +1,17 @@
+#%Module#####################################################
+## Module file for regrid_nemsio
+#############################################################
+module load license_intel/SSEC
+module load intel/18.0.3
+module load hdf/4.2.14
+module load hdf5/1.8.21
+module load netcdf4/4.6.2
+
+module use -a $MOD_PATH
+module load bacio/v2.0.2
+module load nemsio/v2.2.3
+module load w3emc/v2.3.0
+module load w3nco/v2.0.6
+module load sp/v2.0.2
+
+export FCMP="mpiifort -f90=ifort"
