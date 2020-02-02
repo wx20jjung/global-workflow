@@ -12,6 +12,9 @@ else
   export MOD_PATH=${cwd}/lib/modulefiles
   if [ $target = wcoss_cray ]; then
     source ../modulefiles/modulefile.fv3nc2nemsio.${target}_userlib > /dev/null 2>&1
+  elif [ $target = s4 ] ; then
+    export MOD_PATH=/data/prod/ncep_libs/intel/18.0.3/modulefiles
+    source ../modulefiles/modulefile.fv3nc2nemsio.$target           > /dev/null 2>&1
   else
     source ../modulefiles/modulefile.fv3nc2nemsio.$target           > /dev/null 2>&1
   fi
@@ -24,15 +27,17 @@ fi
 
 cd ./fv3nc2nemsio.fd
 
-LIBnetcdf=`$NETCDF/bin/nf-config --flibs`
-INCnetcdf=`$NETCDF/bin/nf-config --fflags`
-export NETCDF_LDFLAGS=$LIBnetcdf
-export NETCDF_INCLUDE=$INCnetcdf
+#LIBnetcdf=`$NETCDF/bin/nf-config --flibs`
+#INCnetcdf=`$NETCDF/bin/nf-config --fflags`
+#export NETCDF_LDFLAGS=$LIBnetcdf
+#export NETCDF_INCLUDE=$INCnetcdf
 
 $FCMP $FFLAGS -c kinds.f90
 $FCMP $FFLAGS -c constants.f90
-$FCMP $FFLAGS $NETCDF_INCLUDE -I $NEMSIO_INC -c fv3_module.f90
-$FCMP $FFLAGS $NETCDF_INCLUDE -I $NEMSIO_INC -I. -o fv3nc2nemsio.x fv3_main.f90 fv3_module.o $NETCDF_LDFLAGS $NEMSIO_LIB $BACIO_LIB4 $W3NCO_LIBd
+#$FCMP $FFLAGS $NETCDF_INCLUDE -I $NEMSIO_INC -c fv3_module.f90
+$FCMP $FFLAGS -I$NETCDF_INC -I $NEMSIO_INC -c fv3_module.f90
+#$FCMP $FFLAGS $NETCDF_INCLUDE -I $NEMSIO_INC -I. -o fv3nc2nemsio.x fv3_main.f90 fv3_module.o $NETCDF_LDFLAGS $NEMSIO_LIB $BACIO_LIB4 $W3NCO_LIBd
+$FCMP $FFLAGS -I$NETCDF_INC -I $NEMSIO_INC -I. -o fv3nc2nemsio.x fv3_main.f90 fv3_module.o -L$NETCDF_LIB -lnetcdff -lnetcdf $NEMSIO_LIB $BACIO_LIB4 $W3NCO_LIBd
 
 rm -f *.o *.mod
 

@@ -112,6 +112,14 @@ elif [[ -d /lustre && -d /ncrc ]] ; then
     fi
     target=gaea
     module purge
+elif [[ -d /data/prod ]] ; then
+    # We are on SSEC's S4
+    if ( ! eval module help > /dev/null 2>&1 ) ; then
+        echo load the module command 1>&2
+        . /opt/apps/lmod/3.1.9/init/$__ms_shell
+    fi
+     target=s4
+    module purge
 else
     echo WARNING: UNKNOWN PLATFORM 1>&2
 fi

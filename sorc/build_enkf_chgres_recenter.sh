@@ -12,6 +12,9 @@ else
   export MOD_PATH=${cwd}/lib/modulefiles
   if [ $target = wcoss_cray ]; then
     source ../modulefiles/fv3gfs/enkf_chgres_recenter.${target}_userlib > /dev/null 2>&1
+  elif [ $target = s4 ] ; then
+    export MOD_PATH=/data/prod/ncep_libs/intel/18.0.3/modulefiles
+    source ../modulefiles/fv3gfs/enkf_chgres_recenter.$target             > /dev/null 2>&1
   else
     source ../modulefiles/fv3gfs/enkf_chgres_recenter.$target           > /dev/null 2>&1
   fi
@@ -25,7 +28,7 @@ fi
 
 cd ${cwd}/enkf_chgres_recenter.fd
 
-export FFLAGS="-O3 -r8 -i4 -qopenmp -traceback -fp-model precise"
+export FFLAGS="-O2 -r8 -i4 -qopenmp -traceback -fp-model strict"
 
 make clean
 make

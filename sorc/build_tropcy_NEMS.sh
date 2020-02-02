@@ -90,6 +90,17 @@ elif [ $target = wcoss_dell_p3 ]; then
     #export FFLAGS="-qopenmp -O3 -g -traceback -r8 -I${NEMSIOGFS_INC} -I${NEMSIO_INC} -I${SIGIO_INC4}"
     export FFLAGS="-qopenmp -O1 -g -traceback -r8 -I${NEMSIOGFS_INC} -I${NEMSIO_INC} -I${SIGIO_INC4}"
 
+elif [ $target = s4 ]; then
+
+    targetx=s4
+    source ../modulefiles/modulefile.storm_reloc_v6.0.0.$target
+    module list
+
+    export LIBS_REL="${W3NCO_LIBd}"
+
+    export FC=mpiifort
+    export FFLAGS="-qopenmp -O2 -g -traceback -r8 -fp-model strict -I${NEMSIOGFS_INC} -I${NEMSIO_INC} -I${SIGIO_INC4}"
+
 else
 
     echo "Unknown machine = $target"
@@ -145,11 +156,11 @@ cd supvit.fd
    make install
    make clean
    cd ../
-cd gettrk.fd
-   make clean
-   make -f makefile
-   make install
-   make clean
-   cd ../
+#cd gettrk.fd
+#   make clean
+#   make -f makefile
+#   make install
+#   make clean
+#   cd ../
 
 exit
