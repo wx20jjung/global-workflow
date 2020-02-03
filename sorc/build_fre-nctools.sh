@@ -50,7 +50,8 @@ if [ $system_site = "cray" ]; then
   NETCDF=${NETCDF_DIR}
 fi
 
-alias make="make HDF5_HOME=${HDF5}  NETCDF_HOME=${NETCDF} NC_BLKSZ=64K SITE=${system_site} -f fre-nctools.mk"
+#alias make="make HDF5_HOME=${HDF5}  NETCDF_HOME=${NETCDF} NC_BLKSZ=64K SITE=${system_site} -f fre-nctools.mk"
+alias make="make HDF5_HOME=${SSEC_HDF5_DIR}  NETCDF_HOME=${SSEC_NETCDF_DIR} NC_BLKSZ=64K SITE=${system_site} -f fre-nctools.mk"
 
 set +x
 echo "////////////////////////////////////////////////////////////////////////////////"
