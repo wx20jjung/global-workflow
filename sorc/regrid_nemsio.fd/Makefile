@@ -93,8 +93,8 @@ clean:
 # Libraries
 # ---------
 
-INCS = $(NETCDF_INCLUDE) -I$(NEMSIO_INC)
-LIBS = $(NEMSIO_LIB) $(BACIO_LIB4) $(W3NCO_LIBd) $(SP_LIB4) $(NETCDF_LDFLAGS)
+INCS = -I$(NETCDF_INC) -I$(NEMSIO_INC)
+LIBS = $(NEMSIO_LIB) $(BACIO_LIB4) $(W3NCO_LIBd) $(SP_LIB4) -L$(NETCDF_LIB) -lnetcdff -lnetcdf
 
 # ------------
 # Source files
