@@ -1,0 +1,8 @@
+#%Module#####################################################
+## Module file for fre-nctools
+#############################################################
+module load license_intel/SSEC
+module load intel/18.0.3
+module load hdf5/1.8.21
+module load hdf/4.2.14
+module load netcdf4/4.6.2
