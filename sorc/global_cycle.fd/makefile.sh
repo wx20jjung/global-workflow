@@ -9,7 +9,7 @@ export FCMP=${FCMP:-ifort}
 
 ##export DEBUG='-ftrapuv -check all -check nooutput_conversion -fp-stack-check -fstack-protector -traceback -g'
 export INCS="-I$IP_INCd ${NETCDF_INCLUDE}"
-export FFLAGS="$INCS -O3 -fp-model precise -r8 -convert big_endian -traceback -g"
+export FFLAGS="$INCS -O2 -fp-model strict -r8 -convert big_endian -traceback -g"
 export OMPFLAG=-qopenmp
 export LDFLG=-qopenmp
 
