@@ -148,5 +148,6 @@ fi
 export AIRS_CADS=".false."
 export CRIS_CADS=".false."
 export IASI_CADS=".false."
+export IASING_CADS=".false."
 
 echo "END: config.anal"
